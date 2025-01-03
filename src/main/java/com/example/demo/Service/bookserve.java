@@ -37,4 +37,12 @@ public class bookserve {
 
     }
 
+    public Book updateBook(Long id, Book bookDetail){
+        Book book= bookRepo.findById(id).get();
+        book.setTitle(bookDetail.getTitle());
+        book.setAuthor(bookDetail.getAuthor());
+
+        return bookRepo.save(book);
+    }
+
 }

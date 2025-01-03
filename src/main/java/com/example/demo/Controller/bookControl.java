@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/path/books")
+@RequestMapping("/api/books")
 public class bookControl {
     private final bookserve bookserve;
 
@@ -34,6 +34,25 @@ public class bookControl {
     }
 
     @GetMapping
-    public ResponseEntity<Book>
+    public ResponseEntity<List<Book>> getEm(){
+        List<Book> books = bookserve.getEmAll();
+        return ResponseEntity.ok(books);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id){
+        bookserve.deleteBook(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book bookDetail){
+        Book updated = bookserve.updateBook(id, bookDetail);
+        return ResponseEntity.ok(updated);
+    }
 
 }
+
+
+
+
